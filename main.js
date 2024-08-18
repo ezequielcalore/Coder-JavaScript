@@ -1,5 +1,5 @@
 // Mensaje de bienvenida
-alert("¡Bienvenido al analista de funciones cuadráticas! \n A continuación, ingrese los coeficientes a,b y c de la función a analizar")
+alert("¡Bienvenido al analista de funciones cuadráticas! \nA continuación, ingrese los coeficientes a, b y c de la función a analizar")
 
 // Coeficientes reales a,b y c de la función cuadrática a estudiar
 let coef_a = parseFloat(prompt("Ingrese el coeficiente a"))
@@ -59,7 +59,7 @@ for (let i=-5; i<=5; i=i+1) {
 }
 
 // Interacción con el usuario
-let menu = parseInt(prompt("La función cuadrática introducida es: f(x)=" + coef_a + "x^2+" + coef_b + "x+" + coef_c + "\n\n ¿Qué desea hallar? \n 1-Vértice \n 2-Raíces \n 3-Ordenada al origen \n 4-Eje de simetría \n 5-Imagen del conjunto A={-5,-4,...,4, 5} \n 6- Salir"))
+let menu = parseInt(prompt("La función cuadrática introducida es: f(x)=" + coef_a + "x^2+" + coef_b + "x+" + coef_c + "\n\n ¿Qué desea hallar? \n 1-Vértice \n 2-Raíces \n 3-Ordenada al origen \n 4-Eje de simetría \n 5-Imagen del conjunto A={-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5} \n 6- Salir"))
 
 while (menu !== 6) {
     switch(menu) {
@@ -87,7 +87,7 @@ while (menu !== 6) {
             break
     }
 
-    menu = parseInt(prompt("La función cuadrática introducida es: f(x)="+coef_a+"x^2+"+coef_b+"x+"+coef_c + "\n\n ¿Qué desea hallar? \n 1-Vértice \n 2-Raíces \n 3-Ordenada al origen \n 4-Eje de simetría \n 5-Imagen del conjunto A={-5,-4,...,4, 5} \n 6- Salir"))
+    menu = parseInt(prompt("La función cuadrática introducida es: f(x)="+coef_a+"x^2+"+coef_b+"x+"+coef_c + "\n\n ¿Qué desea hallar? \n 1-Vértice \n 2-Raíces \n 3-Ordenada al origen \n 4-Eje de simetría \n 5-Imagen del conjunto A={-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5} \n 6- Salir"))
 }
 
 alert("Gracias por su visita")

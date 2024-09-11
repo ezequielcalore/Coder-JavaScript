@@ -7,11 +7,55 @@
 
     <!-- JS -->
      <script defer src="main.js"> </script>
+
 </head>
 
 <body>  
-    <!-- Este simulador matemático permite hallar los principales 
-    elementos de cualquier función cuadrática [f(x)=ax^2+bx+c] como
-    lo son: el vértice, las raíces, ordenada al origen y el eje de simetría -->
+    <h1> Analista de funciones cuadráticas </h1>
+    <div>
+        <p>
+            ¡Bienvenido al analista de funciones cuadráticas! Este simulador matemático permite hallar los principales 
+            elementos de cualquier función cuadrática f(x)=ax^2+bx+c como lo son: el vértice, las raíces, ordenada al origen y el eje de simetría.
+        </p>
+        <p>
+            A continuación, ingrese los coeficientes a, b y c de la función a analizar
+        </p>
+    </div>
+    <div>
+        <input type="number" id="casilla_a" value="1"></input>
+        <input type="number" id="casilla_b" value="0"></input>
+        <input type="number" id="casilla_c" value="0"></input>
+        <button id="confirmacion"> confirmar </button>
+    </div>
+
+    <div id="funcion_introducida">
+    </div>
+
+    <div id="texto_vertice">
+    </div>
+
+    <div id="texto_raices">
+    </div>
+
+    <div id="texto_ordenada_al_origen">
+    </div>
+
+    <div id="texto_eje_simetria"> 
+    </div>
+
+    <div id="texto_conjunto_imagen">   
+    </div>
+    
+    <div>
+        <button id="borrar_historial"> Borrar historial </button>
+    </div>
+
+    </div>
+        <button id="recuperar_historial"> recuperar últimos datos </button>
+    </div>
+
+    <section id="funciones_trabajadas">    
+    </section>
+
 </body>
 </html>

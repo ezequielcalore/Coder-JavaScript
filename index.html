@@ -3,58 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Preentrega 1 </title>
+    <title> Preentrega 2 </title>
 
     <!-- JS -->
-     <script defer src="main.js"> </script>
+    <script defer src="main.js"> </script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css"> 
 
 </head>
 
 <body>  
-    <h1> Analista de funciones cuadráticas </h1>
-    <div>
+
+    <div class="titulo">
+        <h1> Analista de funciones cuadráticas </h1>
+    </div>
+
+    <div class="presentacion">
         <p>
             ¡Bienvenido al analista de funciones cuadráticas! Este simulador matemático permite hallar los principales 
             elementos de cualquier función cuadrática f(x)=ax^2+bx+c como lo son: el vértice, las raíces, ordenada al origen y el eje de simetría.
-        </p>
-        <p>
             A continuación, ingrese los coeficientes a, b y c de la función a analizar
         </p>
+
+        <div class="recuperar/borrar">
+            <button id="recuperar_historial"> Recuperar últimos datos </button>
+            <button id="borrar_historial"> Borrar historial </button>
+        </div>
+    
     </div>
-    <div>
+
+    <div class="casillas">
+        <h4> Coeficiente a </h4>
         <input type="number" id="casilla_a" value="1"></input>
+        <h4> Coeficiente b </h4>
         <input type="number" id="casilla_b" value="0"></input>
+        <h4> Coeficiente c </h4>
         <input type="number" id="casilla_c" value="0"></input>
         <button id="confirmacion"> confirmar </button>
     </div>
 
-    <div id="funcion_introducida">
-    </div>
+    <section class="analisis">
 
-    <div id="texto_vertice">
-    </div>
-
-    <div id="texto_raices">
-    </div>
-
-    <div id="texto_ordenada_al_origen">
-    </div>
-
-    <div id="texto_eje_simetria"> 
-    </div>
-
-    <div id="texto_conjunto_imagen">   
-    </div>
+        <div id="texto_vertice">
+        </div>
     
-    <div>
-        <button id="borrar_historial"> Borrar historial </button>
-    </div>
+        <div id="texto_raices">
+        </div>
+    
+        <div id="texto_ordenada_al_origen">
+        </div>
+    
+        <div id="texto_eje_simetria"> 
+        </div>
+    
+        <div id="texto_conjunto_imagen">   
+        </div>
 
-    </div>
-        <button id="recuperar_historial"> recuperar últimos datos </button>
-    </div>
-
-    <section id="funciones_trabajadas">    
+    </section>
+    
+    <section class="lista_funciones" id="funciones_trabajadas">    
     </section>
 
 </body>

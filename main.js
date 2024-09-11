@@ -53,11 +53,17 @@ function imagen_A (a,b,c) {
     return conjunto_imagen
 }
 
+// redondear decimales
+function redondeo_decimales(num, cifras) {
+    redondeo = Math.round(num * Math.pow(10,cifras)) / Math.pow(10,cifras)
+    return redondeo
+}
+
 // _____________________________MENSAJES A IMPRIMIR_____________________________
 
 // mensaje vértice
 function mensaje_vertice (a,b,c) {
-    return "El vértice de f es V=("+ vertice(a,b,c) + ")"
+    return "El vértice de f es V=(" + redondeo_decimales(vertice(a,b,c)[0],4) + " , " + redondeo_decimales(vertice(a,b,c)[1],4) + ")"
 }
 
 // mensaje raíces
@@ -65,9 +71,9 @@ function mensaje_raices (a,b,c) {
     if (cant_raices(a,b,c)==0) {
         return "f no tiene raíces"
     } else if (cant_raices(a,b,c)==1) {
-        return "f tiene una única raíz: x="+ resolvente(a,b,c)[0]
+        return "f tiene una única raíz: x="+ redondeo_decimales(resolvente(a,b,c)[0],4)
     } else {
-        return "f tiene dos raíces: x=" + resolvente(a,b,c)[0] + " y x=" + resolvente(a,b,c)[1]
+        return "f tiene dos raíces: x=" + redondeo_decimales(resolvente(a,b,c)[0],4) + " y x=" + redondeo_decimales(resolvente(a,b,c)[1],4)
     }
 }
 
@@ -78,12 +84,7 @@ function mensaje_ordenada_al_origen (c) {
 
 // mensaje eje de simetría
 function mensaje_eje_simetria (a,b,c) {
-    return "El eje de simetría es: x = " + vertice(a,b,c)[0]
-}
-
-//mensaje conjunto imagen de A={-2,-1,0,1,2}
-function mensaje_conjunto_imagen (a,b,c) {
-    return "El conjunto imagen de A={-2,-1,0,1,2} es: f(A) = {" + imagen_A(a,b,c) + "}"
+    return "El eje de simetría es: x = " + redondeo_decimales(vertice(a,b,c)[0],4)
 }
 
 // ______________________________VÍNCULOS HTML - JS_______________________________
@@ -101,6 +102,8 @@ let texto_ordenada_al_origen = document.getElementById("texto_ordenada_al_origen
 let texto_eje_simetria = document.getElementById("texto_eje_simetria")
 let texto_conjunto_imagen = document.getElementById("texto_conjunto_imagen")
 
+let tabla_de_valores = document.getElementById("tabla_de_valores")
+
 // _______________________________EVENTO PRINCIPAL____________________________________
 
 boton_confirmar.onclick = (e) => {
@@ -115,7 +118,13 @@ boton_confirmar.onclick = (e) => {
     texto_raices.innerText = mensaje_raices(coeficiente_a, coeficiente_b, coeficiente_c)
     texto_ordenada_al_origen.innerText = mensaje_ordenada_al_origen(coeficiente_c)
     texto_eje_simetria.innerText = mensaje_eje_simetria(coeficiente_a, coeficiente_b, coeficiente_c)
-    texto_conjunto_imagen.innerText = mensaje_conjunto_imagen(coeficiente_a, coeficiente_b, coeficiente_c)
+
+    tabla_de_valores.innerHTML = `<h3>  x </h3> <h3> f(x) </h3>
+                                  <h3> -2 </h3> <h3> ${imagen_A(coeficiente_a, coeficiente_b, coeficiente_c)[0]} </h3>
+                                  <h3> -1 </h3> <h3> ${imagen_A(coeficiente_a, coeficiente_b, coeficiente_c)[1]} </h3>
+                                  <h3>  0 </h3> <h3> ${imagen_A(coeficiente_a, coeficiente_b, coeficiente_c)[2]} </h3>
+                                  <h3>  1 </h3> <h3> ${imagen_A(coeficiente_a, coeficiente_b, coeficiente_c)[3]} </h3>
+                                  <h3>  2 </h3> <h3> ${imagen_A(coeficiente_a, coeficiente_b, coeficiente_c)[4]} </h3>`
 
     render_funciones(funciones_estudiadas)
 
@@ -134,7 +143,7 @@ function render_funciones(funciones_array) {
         const num = funciones_array.indexOf(funcion)
 
         const card = document.createElement("div")
-        card.innerHTML = `<h3> f(x)= ${funcion.a}x^2 + ${funcion.b}x + ${funcion.c}</h3>
+        card.innerHTML = `<h3> f(x)= ${funcion.a}x<sup>2</sup> + ${funcion.b}x + ${funcion.c}</h3>
                           <button id="analizar_${num}"> volver a analizar </button>`
         funciones_trabajadas.appendChild(card)
 
@@ -166,4 +175,3 @@ recuperar_historial.onclick = (e) => {
     funciones_estudiadas = JSON.parse(historial)
     render_funciones(funciones_estudiadas)
 }
-

@@ -28,19 +28,23 @@
 
         <div class="recuperar/borrar">
             <button id="recuperar_historial"> Recuperar últimos datos </button>
-            <button id="borrar_historial"> Borrar historial </button>
+            <button id="borrar_historial"> Borrar historial completo </button>
         </div>
     
     </div>
 
     <div class="casillas">
         <h4> Coeficiente a </h4>
-        <input type="number" id="casilla_a" value="1"></input>
+        <input id="casilla_a" value="1"></input>
         <h4> Coeficiente b </h4>
-        <input type="number" id="casilla_b" value="0"></input>
+        <input id="casilla_b" value="0"></input>
         <h4> Coeficiente c </h4>
-        <input type="number" id="casilla_c" value="0"></input>
+        <input id="casilla_c" value="0"></input>
         <button id="confirmacion"> confirmar </button>
+    </div>
+
+    <div class="ley_funcion">
+        <h3 id="funcion_introducida"></h3>   
     </div>
 
     <section class="analisis">
@@ -62,7 +66,14 @@
 
     </section>
     
+    <div class="funcion_actual" id="funcion_actual">
+    </div>
+
     <div class="tabla" id="tabla_de_valores">
+    </div>
+
+    <div class="historial">
+        <h3> Historial </h3>
     </div>
 
     <section class="lista_funciones" id="funciones_trabajadas">    

@@ -87,6 +87,11 @@ function mensaje_eje_simetria (a,b,c) {
     return "El eje de simetría es: x = " + redondeo_decimales(vertice(a,b,c)[0],4)
 }
 
+// mensaje función en estudio
+function mensaje_funcion (a,b,c) {
+    return "f(x)= " + a + "x<sup>2</sup> + " + b + "x + " + c 
+}
+
 // ______________________________VÍNCULOS HTML - JS_______________________________
 
 let boton_confirmar = document.getElementById("confirmacion")
@@ -106,30 +111,50 @@ let tabla_de_valores = document.getElementById("tabla_de_valores")
 
 // _______________________________EVENTO PRINCIPAL____________________________________
 
-boton_confirmar.onclick = (e) => {
-
-    coeficiente_a = parseFloat(input_a.value)
-    coeficiente_b = parseFloat(input_b.value)
-    coeficiente_c = parseFloat(input_c.value)
-
-    funciones_estudiadas.unshift({a: coeficiente_a,b: coeficiente_b, c: coeficiente_c})
-    
-    texto_vertice.innerText = mensaje_vertice(coeficiente_a, coeficiente_b, coeficiente_c)
-    texto_raices.innerText = mensaje_raices(coeficiente_a, coeficiente_b, coeficiente_c)
-    texto_ordenada_al_origen.innerText = mensaje_ordenada_al_origen(coeficiente_c)
-    texto_eje_simetria.innerText = mensaje_eje_simetria(coeficiente_a, coeficiente_b, coeficiente_c)
+function analisis (a,b,c) { 
+    texto_vertice.innerText = mensaje_vertice(a,b,c)
+    texto_raices.innerText = mensaje_raices(a,b,c)
+    texto_ordenada_al_origen.innerText = mensaje_ordenada_al_origen(c)
+    texto_eje_simetria.innerText = mensaje_eje_simetria(a,b,c)
+    funcion_introducida.innerHTML = mensaje_funcion(a,b,c)
 
     tabla_de_valores.innerHTML = `<h3>  x </h3> <h3> f(x) </h3>
-                                  <h3> -2 </h3> <h3> ${imagen_A(coeficiente_a, coeficiente_b, coeficiente_c)[0]} </h3>
-                                  <h3> -1 </h3> <h3> ${imagen_A(coeficiente_a, coeficiente_b, coeficiente_c)[1]} </h3>
-                                  <h3>  0 </h3> <h3> ${imagen_A(coeficiente_a, coeficiente_b, coeficiente_c)[2]} </h3>
-                                  <h3>  1 </h3> <h3> ${imagen_A(coeficiente_a, coeficiente_b, coeficiente_c)[3]} </h3>
-                                  <h3>  2 </h3> <h3> ${imagen_A(coeficiente_a, coeficiente_b, coeficiente_c)[4]} </h3>`
+                                  <h3> -2 </h3> <h3> ${imagen_A(a,b,c)[0]} </h3>
+                                  <h3> -1 </h3> <h3> ${imagen_A(a,b,c)[1]} </h3>
+                                  <h3>  0 </h3> <h3> ${imagen_A(a,b,c)[2]} </h3>
+                                  <h3>  1 </h3> <h3> ${imagen_A(a,b,c)[3]} </h3>
+                                  <h3>  2 </h3> <h3> ${imagen_A(a,b,c)[4]} </h3>`
+}
 
-    render_funciones(funciones_estudiadas)
 
-    localStorage.setItem("funciones", JSON.stringify(funciones_estudiadas))
+boton_confirmar.onclick = (e) => {
 
+    if ( input_a.value==0 ||
+        isNaN (input_a.value) ||
+        isNaN (input_b.value) ||
+        isNaN (input_c.value) ||
+        input_a.value=="" ||
+        input_b.value=="" ||
+        input_c.value=="") {
+        alert("Los coeficientes deben ser números reales donde a es no nulo")
+    
+    } else {
+
+        coeficiente_a = parseFloat(input_a.value)
+        coeficiente_b = parseFloat(input_b.value)
+        coeficiente_c = parseFloat(input_c.value)
+
+        if (JSON.stringify(funciones_estudiadas[0]) !== JSON.stringify({a: coeficiente_a,b: coeficiente_b,c: coeficiente_c})) {
+            funciones_estudiadas.unshift({a: coeficiente_a,b: coeficiente_b, c: coeficiente_c})
+        }
+    
+        analisis(coeficiente_a, coeficiente_b, coeficiente_c)
+
+        render_funciones(funciones_estudiadas)
+    
+        localStorage.setItem("funciones", JSON.stringify(funciones_estudiadas))
+    
+    }
 }
 
 //__________________________ARRAY DE FUNCIONES TRABAJADAS__________________________
@@ -143,16 +168,25 @@ function render_funciones(funciones_array) {
         const num = funciones_array.indexOf(funcion)
 
         const card = document.createElement("div")
+        card.setAttribute("id", num)
+
         card.innerHTML = `<h3> f(x)= ${funcion.a}x<sup>2</sup> + ${funcion.b}x + ${funcion.c}</h3>
-                          <button id="analizar_${num}"> volver a analizar </button>`
+                          <button id="analizar_${num}"> volver a analizar </button>
+                          <button id="borrar_${num}"> borrar </button>`
         funciones_trabajadas.appendChild(card)
 
         document.getElementById(`analizar_${num}`).onclick = (e) => {
-            input_a.value = funcion.a
-            input_b.value = funcion.b
-            input_c.value = funcion.c
-            boton_confirmar.onclick()
+        analisis(funcion.a, funcion.b, funcion.c)
         }
+
+        document.getElementById(`borrar_${num}`).onclick = (e) => {
+            funciones_estudiadas = funciones_estudiadas.filter((objeto) => objeto.a !== funcion.a || 
+                                                                           objeto.b !== funcion.b || 
+                                                                           objeto.c !== funcion.c)
+            document.getElementById(num).remove()
+            localStorage.setItem("funciones", JSON.stringify(funciones_estudiadas))
+        }
+
     })  
 }
 
@@ -162,7 +196,7 @@ borrar_historial = document.getElementById("borrar_historial")
 
 borrar_historial.onclick = (e) => {
     location.reload()
-    sessionStorage.clear()
+    localStorage.clear()
 }
 
 //______________________________RECUPERAR HISTORIAL________________________________
@@ -174,4 +208,5 @@ recuperar_historial.onclick = (e) => {
     historial = localStorage.getItem("funciones")
     funciones_estudiadas = JSON.parse(historial)
     render_funciones(funciones_estudiadas)
+    analisis(funciones_estudiadas[0].a,funciones_estudiadas[0].b,funciones_estudiadas[0].c)
 }

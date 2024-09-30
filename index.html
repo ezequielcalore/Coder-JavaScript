@@ -6,11 +6,12 @@
     <title> Preentrega 2 </title>
 
     <!-- JS -->
-    <script defer src="main.js"> </script>
-    <script defer src="math.js"> </script>
+    <script defer src="./js/main.js"> </script>
+    <script defer src="./js/math.js"> </script>
+    <script defer src="./js/mensajes.js"> </script>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="styles.css"> 
+    <link rel="stylesheet" href="./css/styles.css"> 
 
 </head>
 
@@ -23,8 +24,8 @@
     <div class="presentacion">
         <p>
             ¡Bienvenido al analista de funciones cuadráticas! Este simulador matemático permite hallar los principales 
-            elementos de cualquier función cuadrática f(x)=ax<sup>2</sup>+bx+c como lo son: el vértice, las raíces, ordenada al origen y el eje de simetría.
-            A continuación, ingrese los coeficientes a, b y c de la función a analizar
+            elementos de cualquier función cuadrática f(x)=ax<sup>2</sup>+bx+c.
+            A continuación, seleccione alguna de las siguientes funciones modelo o bien introduzca los coeficientes a, b y c de la función que desee. 
         </p>
 
         <div class="recuperar/borrar">
@@ -34,10 +35,6 @@
     
     </div>
 
-    <section id="ejemplos">
-
-    </section>
-
     <div class="casillas">
         <h4> Coeficiente a </h4>
         <input id="casilla_a" value="1"></input>
@@ -46,6 +43,9 @@
         <h4> Coeficiente c </h4>
         <input id="casilla_c" value="0"></input>
         <button id="confirmacion"> confirmar </button>
+    </div>
+
+    <div id="ejemplos" class="ejemplos">
     </div>
 
     <div class="ley_funcion">
@@ -84,5 +84,12 @@
     <section class="lista_funciones" id="funciones_trabajadas">    
     </section>
 
+    <!-- SweetAlert-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+
+    <div class="geogebra">
+        <iframe src="https://www.geogebra.org/classic/qe9dbsmp?embed" width=100% height="600" allowfullscreen style="border: 1px solid #e4e4e4;border-radius: 4px;" frameborder="0"></iframe>
+    </div>
 </body>
 </html>

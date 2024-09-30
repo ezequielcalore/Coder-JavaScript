@@ -1,5 +1,13 @@
 //_____________________________FUNCIONES MATEMÁTICAS_________________________________
 
+// función cuadrática a partir de los coeficientes
+function f (a,b,c) {
+    return (x) => {
+        resultado = a*Math.pow(x,2) + b*x + c
+        return resultado
+    }
+}
+
 // Discriminante de la función cuadrática
 function discriminante(a,b,c) {
     return Math.pow(b,2)-4*a*c
@@ -22,19 +30,12 @@ function resolvente(a,b,c) {
     
 }
 
-// función cuadrática a partir de los coeficientes (de orden superior)
-function f (a,b,c) {
-    return (x) => {
-        resultado = a*Math.pow(x,2) + b*x + c
-        return resultado
-    }
-}
-
 // Vértice de la función cuadrática
 function vertice(a,b,c) {
     return [-b/(2*a),f(a,b,c)(-b/(2*a))]
 }
 
+// imagen de {-2,-1,0,1,2}
 function imagen_A (a,b,c) {
     let conjunto_imagen =[]
     for (let i=-2; i<=2; i=i+1) {
@@ -43,7 +44,7 @@ function imagen_A (a,b,c) {
     return conjunto_imagen
 }
 
-// redondear decimales
+// Redondear decimales
 function redondeo_decimales(num, cifras) {
     redondeo = Math.round(num * Math.pow(10,cifras)) / Math.pow(10,cifras)
     return redondeo

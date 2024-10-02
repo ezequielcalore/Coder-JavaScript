@@ -10,7 +10,7 @@ borrar_historial.onclick = (e) => {
         denyButtonText: "descartar"
       }).then((result) => {
         if (result.isConfirmed) {
-            location.reload()
+            location.reload() //ver otra forma sin reload
             localStorage.clear()
         } 
       })

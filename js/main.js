@@ -8,7 +8,7 @@ let coeficiente_c = 0
 // Array de funciones cuadráticas en estudio
 let funciones_estudiadas = []
 
-// ______________________________VÍNCULOS HTML - JS_______________________________
+// ________________________________VÍNCULOS HTML - JS_________________________________
 
 let boton_confirmar = document.getElementById("confirmacion")
 
@@ -26,9 +26,21 @@ let texto_conjunto_imagen = document.getElementById("texto_conjunto_imagen")
 let tabla_de_valores = document.getElementById("tabla_de_valores")
 let funciones_trabajadas = document.getElementById("funciones_trabajadas")
 
-let geogebra = document.getElementById("geogebra")
-geogebra.innerHTML = `<iframe src="https://www.geogebra.org/classic/rjtc6rzr?embed" width=100% height="500" allowfullscreen style="border: 1px solid #e4e4e4;border-radius: 4px;" frameborder="0"></iframe>`
+//________________________________APPLET GEOGEBRA_____________________________________
 
+let geogebra = document.getElementById("geogebra")
+geogebra.innerHTML = `<iframe onload="onMyFrameLoad()" src="https://www.geogebra.org/classic/rjtc6rzr?embed" width=100% height="500"> </iframe>`
+
+// Evitar que el sitio scrollee hasta el iframe (aguardo 1seg a que cargue)
+function noscroll() {
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener('scroll', noscroll);
+  function onMyFrameLoad() {
+    setTimeout(function () {
+        window.removeEventListener('scroll', noscroll);
+        }, 1000);
+  }
 // _______________________________EVENTO PRINCIPAL____________________________________
 
 boton_confirmar.onclick = (e) => {

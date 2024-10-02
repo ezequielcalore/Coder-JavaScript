@@ -1,3 +1,13 @@
+//________________________________PREDETERMINADOS_________________________________
+
+// valores predeterminados de los coeficientes
+let coeficiente_a = 1
+let coeficiente_b = 0
+let coeficiente_c = 0
+
+// Array de funciones cuadráticas en estudio
+let funciones_estudiadas = []
+
 // ______________________________VÍNCULOS HTML - JS_______________________________
 
 let boton_confirmar = document.getElementById("confirmacion")
@@ -14,22 +24,12 @@ let texto_eje_simetria = document.getElementById("texto_eje_simetria")
 let texto_conjunto_imagen = document.getElementById("texto_conjunto_imagen")
 
 let tabla_de_valores = document.getElementById("tabla_de_valores")
-
 let funciones_trabajadas = document.getElementById("funciones_trabajadas")
 
-//________________________________PREDETERMINADOS_________________________________
-
-// valores predeterminados de los coeficientes
-let coeficiente_a = 1
-let coeficiente_b = 0
-let coeficiente_c = 0
-
-// Array de funciones cuadráticas en estudio
-let funciones_estudiadas = []
-
+let geogebra = document.getElementById("geogebra")
+geogebra.innerHTML = `<iframe src="https://www.geogebra.org/classic/rjtc6rzr?embed" width=100% height="500" allowfullscreen style="border: 1px solid #e4e4e4;border-radius: 4px;" frameborder="0"></iframe>`
 
 // _______________________________EVENTO PRINCIPAL____________________________________
-
 
 boton_confirmar.onclick = (e) => {
 
@@ -98,8 +98,8 @@ boton_confirmar.onclick = (e) => {
 
 
 function render_funciones(funciones_array) {
-    funciones_trabajadas.innerHTML = []
-    funciones_array.forEach(funcion => {
+        funciones_trabajadas.innerHTML = []
+        funciones_array.forEach(funcion => {
 
         const num = funciones_array.indexOf(funcion)
 
@@ -111,6 +111,7 @@ function render_funciones(funciones_array) {
                           <button id="borrar_${num}"> borrar </button>`
         funciones_trabajadas.appendChild(card)
 
+        //botón individual de "volver a analizar"
         document.getElementById(`volver_analizar_${num}`).onclick = (e) => {
             funciones_estudiadas = funciones_estudiadas.filter((objeto) => objeto.a !== funcion.a || 
                                                                            objeto.b !== funcion.b || 
@@ -121,54 +122,32 @@ function render_funciones(funciones_array) {
             render_funciones(funciones_estudiadas)
         }
 
+        //botón individual de "borrar"
         document.getElementById(`borrar_${num}`).onclick = (e) => {
             funciones_estudiadas = funciones_estudiadas.filter((objeto) => objeto.a !== funcion.a || 
                                                                            objeto.b !== funcion.b || 
-                                                                           objeto.c !== funcion.c)
+                                                                           objeto.c !== funcion.c) 
             render_funciones(funciones_estudiadas)
         }
+        
+        localStorage.setItem("funciones", JSON.stringify(funciones_estudiadas))   
+    })
 
-        localStorage.setItem("funciones", JSON.stringify(funciones_estudiadas))
-    })  
-}
-
-//_______________________________BORRAR HISTORIAL__________________________________
-
-borrar_historial = document.getElementById("borrar_historial")
-
-borrar_historial.onclick = (e) => {
-    Swal.fire({
-        title: "¿Está seguro que desea borrar el historial completo?",
-        showDenyButton: true,
-        confirmButtonText: "Confirmar",
-        denyButtonText: "descartar"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          location.reload()
-          localStorage.clear()
-        } 
-      })
-}
-
-//______________________________RECUPERAR HISTORIAL________________________________
-
-
-recuperar_historial = document.getElementById("recuperar_historial")
-
-recuperar_historial.onclick = (e) => {
-    if (localStorage.getItem("funciones")!==null) {
-        historial = localStorage.getItem("funciones")
-        funciones_estudiadas = JSON.parse(historial)
-        render_funciones(funciones_estudiadas)
-        mensaje_analisis(funciones_estudiadas[0].a,funciones_estudiadas[0].b,funciones_estudiadas[0].c)
-        Swal.fire("Se han recuperado los últimos datos");
-    } else {
-        Swal.fire("No hay datos para recuperar");
+    if (funciones_estudiadas.length>=1) {
+        mensaje_analisis(funciones_estudiadas[0].a, funciones_estudiadas[0].b, funciones_estudiadas[0].c)
+        } else {
+            localStorage.clear()
+            texto_vertice.innerText = ""
+            texto_raices.innerText = ""
+            texto_ordenada_al_origen.innerText = ""
+            texto_eje_simetria.innerText = ""
+            funcion_introducida.innerHTML = ""
+            tabla_de_valores.innerHTML = ``
     }
 }
 
+//_____________________________ARRAY DE FUNCIONES MODELOS_____________________________
 
-//__________________________________________________________________________________
 
 let ejemplos = document.getElementById("ejemplos")
 
@@ -203,9 +182,7 @@ fetch("./db/data.JSON")
                 mensaje_analisis(funcion.a, funcion.b, funcion.c)
                 render_funciones(funciones_estudiadas)
                 localStorage.setItem("funciones", JSON.stringify(funciones_estudiadas))
-
-                }
-       
+            }      
         })
     })
     

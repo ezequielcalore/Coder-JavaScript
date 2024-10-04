@@ -1,6 +1,6 @@
-//________________________________PREDETERMINADOS_________________________________
+//__________________________________PREDETERMINADOS___________________________________
 
-// valores predeterminados de los coeficientes
+// Valores predeterminados de los coeficientes
 let coeficiente_a = 1
 let coeficiente_b = 0
 let coeficiente_c = 0
@@ -26,21 +26,6 @@ let texto_conjunto_imagen = document.getElementById("texto_conjunto_imagen")
 let tabla_de_valores = document.getElementById("tabla_de_valores")
 let funciones_trabajadas = document.getElementById("funciones_trabajadas")
 
-//________________________________APPLET GEOGEBRA_____________________________________
-
-let geogebra = document.getElementById("geogebra")
-geogebra.innerHTML = `<iframe onload="onMyFrameLoad()" src="https://www.geogebra.org/classic/rjtc6rzr?embed" width=100% height="500"> </iframe>`
-
-// Evitar que el sitio scrollee hasta el iframe (aguardo 1seg a que cargue)
-function noscroll() {
-    window.scrollTo(0, 0);
-  }
-  window.addEventListener('scroll', noscroll);
-  function onMyFrameLoad() {
-    setTimeout(function () {
-        window.removeEventListener('scroll', noscroll);
-        }, 1000);
-  }
 // _______________________________EVENTO PRINCIPAL____________________________________
 
 boton_confirmar.onclick = (e) => {
@@ -77,88 +62,10 @@ boton_confirmar.onclick = (e) => {
         mensaje_analisis(coeficiente_a, coeficiente_b, coeficiente_c)
         render_funciones(funciones_estudiadas)
         localStorage.setItem("funciones", JSON.stringify(funciones_estudiadas))
-    
-    // analisis(funciones_estudiadas, coeficiente_a, coeficiente_b, coeficiente_c)
-
     }
 }
 
-//_________________________________Funcion análisis__________________________________
-
-// function analisis (funciones,num1,num2,num3) {
-//     let busqueda = funciones.filter(funcion => 
-//         funcion.a == num1 &&
-//         funcion.b == num2 &&
-//         funcion.c == num3)
-    
-//     if (busqueda.length==1) {
-//         funciones = funciones.filter(funcion => 
-//         funcion.a !== num1 || 
-//         funcion.b !== num2 || 
-//         funcion.c !== num3)
-//     } 
-
-//     funciones.unshift({a: num1,b: num2, c: num3})
-//     mensaje_analisis(num1, num2, num3)
-//     render_funciones(funciones)
-//     localStorage.setItem("funciones", JSON.stringify(funciones))
-
-// }
-
-
-//__________________________ARRAY DE FUNCIONES TRABAJADAS__________________________
-
-
-function render_funciones(funciones_array) {
-        funciones_trabajadas.innerHTML = []
-        funciones_array.forEach(funcion => {
-
-        const num = funciones_array.indexOf(funcion)
-
-        const card = document.createElement("div")
-        card.setAttribute("id", num)
-
-        card.innerHTML = `<h3> f(x)= ${funcion.a}x<sup>2</sup> + ${funcion.b}x + ${funcion.c}</h3>
-                          <button id="volver_analizar_${num}"> volver a analizar </button>
-                          <button id="borrar_${num}"> borrar </button>`
-        funciones_trabajadas.appendChild(card)
-
-        //botón individual de "volver a analizar"
-        document.getElementById(`volver_analizar_${num}`).onclick = (e) => {
-            funciones_estudiadas = funciones_estudiadas.filter((objeto) => objeto.a !== funcion.a || 
-                                                                           objeto.b !== funcion.b || 
-                                                                           objeto.c !== funcion.c)
-
-            funciones_estudiadas.unshift({a:funcion.a, b:funcion.b, c:funcion.c})
-            mensaje_analisis(funcion.a, funcion.b, funcion.c)
-            render_funciones(funciones_estudiadas)
-        }
-
-        //botón individual de "borrar"
-        document.getElementById(`borrar_${num}`).onclick = (e) => {
-            funciones_estudiadas = funciones_estudiadas.filter((objeto) => objeto.a !== funcion.a || 
-                                                                           objeto.b !== funcion.b || 
-                                                                           objeto.c !== funcion.c) 
-            render_funciones(funciones_estudiadas)
-        }
-        
-        localStorage.setItem("funciones", JSON.stringify(funciones_estudiadas))   
-    })
-
-    if (funciones_estudiadas.length>=1) {
-        mensaje_analisis(funciones_estudiadas[0].a, funciones_estudiadas[0].b, funciones_estudiadas[0].c)
-        } else {
-            localStorage.clear()
-            texto_vertice.innerText = ""
-            texto_raices.innerText = ""
-            texto_ordenada_al_origen.innerText = ""
-            texto_eje_simetria.innerText = ""
-            funcion_introducida.innerHTML = ""
-            tabla_de_valores.innerHTML = ``
-    }
-}
-
-//_____________________________ARRAY DE FUNCIONES MODELOS_____________________________
+//____________________________ARRAY DE FUNCIONES MODELOS____________________________
 
 
 let ejemplos = document.getElementById("ejemplos")
@@ -198,3 +105,55 @@ fetch("./db/data.JSON")
         })
     })
     
+//__________________________ARRAY DE FUNCIONES TRABAJADAS__________________________
+
+function render_funciones(funciones_array) {
+        funciones_trabajadas.innerHTML = []
+        funciones_array.forEach(funcion => {
+
+        const num = funciones_array.indexOf(funcion)
+
+        const card = document.createElement("div")
+        card.setAttribute("id", num)
+
+        card.innerHTML = `<h3> f(x)= ${funcion.a}x<sup>2</sup> + ${funcion.b}x + ${funcion.c}</h3>
+                          <button id="volver_analizar_${num}"> volver a analizar </button>
+                          <button id="borrar_${num}"> borrar </button>`
+        funciones_trabajadas.appendChild(card)
+
+        //botón individual de "volver a analizar"
+        document.getElementById(`volver_analizar_${num}`).onclick = (e) => {
+            funciones_estudiadas = funciones_estudiadas.filter((objeto) => objeto.a !== funcion.a || 
+                                                                           objeto.b !== funcion.b || 
+                                                                           objeto.c !== funcion.c)
+
+            funciones_estudiadas.unshift({a:funcion.a, b:funcion.b, c:funcion.c})
+            mensaje_analisis(funcion.a, funcion.b, funcion.c)
+            render_funciones(funciones_estudiadas)
+        }
+
+        //botón individual de "borrar"
+        document.getElementById(`borrar_${num}`).onclick = (e) => {
+            funciones_estudiadas = funciones_estudiadas.filter((objeto) => objeto.a !== funcion.a || 
+                                                                           objeto.b !== funcion.b || 
+                                                                           objeto.c !== funcion.c) 
+            render_funciones(funciones_estudiadas)
+        }
+        
+        localStorage.setItem("funciones", JSON.stringify(funciones_estudiadas))   
+    })
+
+    if (funciones_estudiadas.length>=1) {
+        mensaje_analisis(funciones_estudiadas[0].a, funciones_estudiadas[0].b, funciones_estudiadas[0].c)
+        evalInput(`a=${funciones_estudiadas[0].a} \n b=${funciones_estudiadas[0].b} \n c=${funciones_estudiadas[0].c}`) 
+        } else {
+            evalInput("a=1\n b=0 \n c=0")
+            localStorage.clear()
+            texto_vertice.innerText = ""
+            texto_raices.innerText = ""
+            texto_ordenada_al_origen.innerText = ""
+            texto_eje_simetria.innerText = ""
+            funcion_introducida.innerHTML = ""
+            tabla_de_valores.innerHTML = ""
+    }
+}

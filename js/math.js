@@ -1,6 +1,6 @@
 //_____________________________FUNCIONES MATEMÁTICAS_________________________________
 
-// función cuadrática a partir de los coeficientes
+// Función cuadrática a partir de los coeficientes
 function f (a,b,c) {
     return (x) => {
         resultado = a*Math.pow(x,2) + b*x + c
@@ -35,7 +35,7 @@ function vertice(a,b,c) {
     return [-b/(2*a),f(a,b,c)(-b/(2*a))]
 }
 
-// imagen de {-2,-1,0,1,2}
+// Imagen de {-2,-1,0,1,2}
 function imagen_A (a,b,c) {
     let conjunto_imagen =[]
     for (let i=-2; i<=2; i=i+1) {
